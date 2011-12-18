@@ -75,13 +75,23 @@
   });
 
   //Router
-  window.BackboneTunes = Backbone.router.extend({
+  window.BackboneTunes = Backbone.Router.extend({
     routes: {
       '' : 'home'
     },
     initialize: function() {
-      
+      this.libraryView = new LibraryView({collection: window.library})
     },
+    home: function() {
+      var $container = $('#container');
+      $container.empty();
+      $container.append(this.libraryView.render().el);
+    }
+  });
+
+  $(function(){
+    window.App =  new BackboneTunes();
+    Backbone.history.start();
   });
 
 })(jQuery);
