@@ -17,10 +17,10 @@
     }
   });
 
-  //Collections.
+  //Collections
   window.Albums = Backbone.Collection.extend({
     model: Album,
-    url: '/albums'
+    url: "/albums"
   });
 
   window.library = new Albums();
@@ -32,7 +32,6 @@
     initialize: function() {
       _.bindAll(this, 'render');
       this.model.bind('change', this.render);
-
       this.template = _.template( $('#album-template').html() );
     },
 
@@ -58,12 +57,13 @@
     },
 
     render: function() {
-      var $albums,
-          collection = this.collection;
+      var $albums;
 
       $(this.el).html(this.template({}));
-      $albums = $('.albums');
-      collection.each( function(album){
+      $albums = this.$(".albums");
+      // console.log("collection", this.collection);
+      // console.log("albums", $albums);
+      this.collection.each( function(album){
         var view = new LibraryAlbumView({
           model: album,
           collection: collection
